@@ -1,0 +1,29 @@
+import pandas as pd
+df = pd.read_csv("medicare-office-locations-as-at-3-july-2019.csv")
+df.shape
+df.isnull().any()
+df.head()
+vic_office = df[df['STATE'] == "VIC"]
+
+# reset the index of dataframe
+vic_office = vic_office.reset_index(drop = True)
+
+vic_office['ADDRESS'][4]
+
+# check how many offices in major city
+vic_office.shape[0] - 21
+
+#vic_office.to_csv("vic_office.csv", index = False)
+
+mylist = []
+for i in range(vic_office.shape[0]):
+    mylist.append(i)
+    
+vic_office['Number'] = mylist
+# append the value of Melbourne to the list
+mylist = []
+for i in range(vic_office.shape[0]):
+    mylist.append("Melbourne")
+vic_office['City'] = mylist # sign values to dataframe
+
+vic_office.to_excel("new_office_map.xlsx", sheet_name = "sheet name 1") # export to excel
